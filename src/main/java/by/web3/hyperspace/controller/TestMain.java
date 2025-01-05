@@ -10,7 +10,7 @@ import by.web3.hyperspace.service.HttpClient;
 
 public class TestMain {
 
-    final static String ALLOWED_MODELS = "https://api.hive.aios.network/v1/models/live?skip=0&take=10";
+    final static String ALLOWED_MODELS = "https://api.hive.aios.network/v1/models/live?skip=0";
 
     public static void main(String[] args) throws IOException {
 //        System.setProperty("webdriver.edge.driver", "src/main/resources/msedgedriver.exe");

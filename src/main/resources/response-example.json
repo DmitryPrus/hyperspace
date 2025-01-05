@@ -1,0 +1,20 @@
+{
+  "params": {
+    "repeatLastN": 64,
+    "repeatPenalty": 1.1,
+    "sampleLen": 4096,
+    "seed": 5,
+    "temperature": 0.8,
+    "topP": 0.95
+  },
+  "createdAt": 1736059639028,
+  "status": "PENDING",
+  "id": "trt1bl64jh0o60m2",
+  "userPK": "J5YCxgQrNSRY2gZ3Wu1XQA9yEpjtyK5YJSDxDZmhF1Yz",
+  "modelID": "hf:bartowski/aixcoder-7b-GGUF:aixcoder-7b-Q4_K_M.gguf",
+  "prompt": "What is Python programming language used for ?",
+  "result": "\" +\n \"A42 B - A python script can perform many different types of tasks from web page monitoring to data formatting.\\n\"+\n\n\n                     \"\\tB 87 C - It's a great environment for developing and while learning to program.\\n\" +\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n                    \"A 57 B - It is capable of running on every device and operating system in existence, thanks to its cross",
+  "registrationID": "s9lgd2ma2c87hzuo",
+  "nodePK": "HkKBChMzwfWMvh9RHgamjiXFDssBgzMNLY8vwC71Rpju",
+  "attempts": 1
+}

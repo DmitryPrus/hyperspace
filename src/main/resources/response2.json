@@ -1,0 +1,19 @@
+{
+  "params": {
+    "repeatLastN": 64,
+    "repeatPenalty": 1.1,
+    "sampleLen": 4096,
+    "seed": 5,
+    "temperature": 0.8,
+    "topP": 0.95
+  },
+  "createdAt": 1736087062125,
+  "status": "PENDING",
+  "id": "irxe67ezybfib8um",
+  "userPK": "J5YCxgQrNSRY2gZ3Wu1XQA9yEpjtyK5YJSDxDZmhF1Yz",
+  "modelID": "hf:bartowski/aixcoder-7b-GGUF:aixcoder-7b-Q4_K_M.gguf",
+  "prompt": "What is JS programming language ? ",
+  "registrationID": "svjj1tea1tclhsr5",
+  "nodePK": "DPX7XYdh2qeinQgpMAorF6cJSCVaHWZdJQg9TA2W8n6c",
+  "attempts": 3
+}
