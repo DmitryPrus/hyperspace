@@ -9,6 +9,7 @@ import com.google.gson.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import by.web3.hyperspace.service.HttpClient;
 import org.openqa.selenium.WebDriver;
@@ -24,8 +25,9 @@ public class TestMain {
     public static void main(String[] args) throws InterruptedException {
 
         for (int i=0; i< 5; i++){
+            var random = new Random();
             var models = getAvailableModelList();
-            var model = models.get(i);
+            var model = models.get(random.nextInt(models.size()));
             var prompt = String.format("Request %d, What is AI?", i+1);
             var req = postRequest(model.getId(), prompt, X_AIOS_NECTAR);
             if (req.getStatus()!= ReqResp.Status.FAILED) req = getRequest(req.getId());
