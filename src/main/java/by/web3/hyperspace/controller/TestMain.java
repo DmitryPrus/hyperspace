@@ -7,6 +7,8 @@ import by.web3.hyperspace.domain.model.ModelResponse;
 import by.web3.hyperspace.domain.model.ReqResp;
 import com.google.gson.*;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -20,15 +22,16 @@ public class TestMain {
     final static String ALLOWED_MODELS = "https://api.hive.aios.network/v1/models/live?skip=0";
     final static String PROMPT = "Request 7. What is time now ?";
     final static String X_AIOS_NECTAR = "7R3H4EmXeyy19Fm3jT1GB39ihxT46FAKJ1cbrwb2QdFkwPee9AeEe3ymG8EqCYqNH8yucqTZCnCHTRDQYQ";
-    final static String REQUST_POST_URL = "https://api.hive.aios.network/v1/inference";
+    final static String REQUEST_POST_URL = "https://api.hive.aios.network/v1/inference";
 
     public static void main(String[] args) throws InterruptedException {
+        var questions = getQuestions("questions.txt");
+        var random = new Random();
 
         for (int i = 0; i < 5; i++) {
-            var random = new Random();
             var models = getAvailableModelList();
             var model = models.get(random.nextInt(models.size()));
-            var prompt = String.format("Request %d, What is AI?", i + 1);
+            var prompt = String.format(questions.get(random.nextInt(questions.size())));
             var req = postRequest(model.getId(), prompt, X_AIOS_NECTAR);
             if (req.getStatus() != ReqResp.Status.FAILED) req = getRequest(req.getId());
             while (req.getStatus() == ReqResp.Status.PENDING) {
@@ -54,7 +57,7 @@ public class TestMain {
         var headers = new HashMap<String, String>();
         headers.put("x-aios-nectar", XaiOsNectar);
         var body = String.format("{\"modelID\":\"%s\",\"prompt\":\"%s\"}", modelId, prompt);
-        var json = client.post(REQUST_POST_URL, body, headers);
+        var json = client.post(REQUEST_POST_URL, body, headers);
         var gson = new Gson();
         var result = gson.fromJson(json, ReqResp.class);
         if (result.getId() == null) {
@@ -66,7 +69,7 @@ public class TestMain {
 
     public static ReqResp getRequest(String requestId) {
         var client = new HttpClient();
-        var json = client.get(REQUST_POST_URL + "/" + requestId, new HashMap<>());
+        var json = client.get(REQUEST_POST_URL + "/" + requestId, new HashMap<>());
         var gson = new Gson();
         return gson.fromJson(json, ReqResp.class);
     }
@@ -76,11 +79,7 @@ public class TestMain {
         var json = client.get(ALLOWED_MODELS, new HashMap<>());
         var gson = new Gson();
         var result = gson.fromJson(json, ModelResponse.class);
-        return result.getModels()
-                .stream()
-                .filter(m -> m.getAvailableNodes() > 0 && m.getActiveNodes() > 0)
-                .map(ModelContainer::getModel)
-                .toList();
+        return result.getModels().stream().filter(m -> m.getAvailableNodes() > 0 && m.getActiveNodes() > 0).map(ModelContainer::getModel).toList();
     }
 
     public static void unusedMethod() {
@@ -99,5 +98,22 @@ public class TestMain {
 //            // Закрываем браузер
 //            driver.quit();
 //        }
+    }
+
+    public static List<String> getQuestions(String fileName) {
+        var questions = new ArrayList<String>();
+
+        try (var inputStream = TestMain.class.getClassLoader().getResourceAsStream(fileName);
+             var reader = new BufferedReader(new InputStreamReader(inputStream))) {
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                questions.add(line);
+            }
+            return questions;
+
+        } catch (IOException e) {
+            return questions;
+        }
     }
 }
