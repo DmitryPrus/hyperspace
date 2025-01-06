@@ -1,6 +1,8 @@
 package by.web3.hyperspace.domain.model;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 public class ReqResp {
     private String id;
@@ -9,10 +11,10 @@ public class ReqResp {
     private Params params;
     private String status;
     private String userPK;
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
     private String result;
     private String nodePK;
-    private long completedAt;
+    private LocalDateTime completedAt;
     private String registrationID;
     private TokenStats tokenStats;
 
@@ -64,14 +66,6 @@ public class ReqResp {
         this.userPK = userPK;
     }
 
-    public OffsetDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(OffsetDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public String getResult() {
         return result;
     }
@@ -88,14 +82,6 @@ public class ReqResp {
         this.nodePK = nodePK;
     }
 
-    public long getCompletedAt() {
-        return completedAt;
-    }
-
-    public void setCompletedAt(long completedAt) {
-        this.completedAt = completedAt;
-    }
-
     public String getRegistrationID() {
         return registrationID;
     }
@@ -110,5 +96,29 @@ public class ReqResp {
 
     public void setTokenStats(TokenStats tokenStats) {
         this.tokenStats = tokenStats;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(long createdAt) {
+        this.createdAt = LocalDateTime.ofEpochSecond(
+                createdAt / 1000,
+                0,
+                ZoneOffset.UTC
+        );
+    }
+
+    public LocalDateTime getCompletedAt() {
+        return completedAt;
+    }
+
+    public void setCompletedAt(long completedAt) {
+        this.completedAt = LocalDateTime.ofEpochSecond(
+                completedAt / 1000,
+                0,
+                ZoneOffset.UTC // Указываем временную зону
+        );
     }
 }
