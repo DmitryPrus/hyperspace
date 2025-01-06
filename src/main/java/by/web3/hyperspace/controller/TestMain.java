@@ -38,6 +38,7 @@ public class TestMain {
             }
             if (req.getStatus() == ReqResp.Status.FAILED) {
                 System.out.printf("Request failed. Body: %s. Reason: %s%n", prompt, req.getErrorMessage());
+                continue;
             }
             if (req.getStatus() == ReqResp.Status.COMPLETED) {
                 var duration = (req.getCompletedAt() - req.getCreatedAt()) / 1000;
