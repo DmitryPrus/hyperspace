@@ -24,31 +24,31 @@ public class TestMain {
 
     public static void main(String[] args) throws InterruptedException {
 
-        for (int i=0; i< 5; i++){
+        for (int i = 0; i < 5; i++) {
             var random = new Random();
             var models = getAvailableModelList();
             var model = models.get(random.nextInt(models.size()));
-            var prompt = String.format("Request %d, What is AI?", i+1);
+            var prompt = String.format("Request %d, What is AI?", i + 1);
             var req = postRequest(model.getId(), prompt, X_AIOS_NECTAR);
-            if (req.getStatus()!= ReqResp.Status.FAILED) req = getRequest(req.getId());
-            while (req.getStatus()==ReqResp.Status.PENDING){
+            if (req.getStatus() != ReqResp.Status.FAILED) req = getRequest(req.getId());
+            while (req.getStatus() == ReqResp.Status.PENDING) {
                 Thread.sleep(60000);
                 req = getRequest(req.getId());
                 System.out.printf("Request with ID %s is pending.%n", req.getId());
             }
-            if (req.getStatus()==ReqResp.Status.FAILED){
+            if (req.getStatus() == ReqResp.Status.FAILED) {
                 System.out.printf("Request failed. Body: %s. Reason: %s%n", prompt, req.getErrorMessage());
             }
-            if(req.getStatus()==ReqResp.Status.COMPLETED){
+            if (req.getStatus() == ReqResp.Status.COMPLETED) {
                 var duration = (req.getCompletedAt() - req.getCreatedAt()) / 1000;
                 System.out.printf("Request %s completed successfully for %d sec", req.getId(), duration);
-            }else {
+            } else {
                 System.out.printf("Something went wrong with request %s", req.getId());
             }
         }
     }
 
-    public static ReqResp postRequest(String modelId, String prompt, String XaiOsNectar){
+    public static ReqResp postRequest(String modelId, String prompt, String XaiOsNectar) {
         var client = new HttpClient();
         var headers = new HashMap<String, String>();
         headers.put("x-aios-nectar", XaiOsNectar);
@@ -56,29 +56,33 @@ public class TestMain {
         var json = client.post(REQUST_POST_URL, body, headers);
         var gson = new Gson();
         var result = gson.fromJson(json, ReqResp.class);
-        if (result.getId() == null){
+        if (result.getId() == null) {
             result.setErrorMessage(gson.fromJson(json, ErrMsg.class).getMessage());
             result.setStatus(ReqResp.Status.FAILED);
         }
         return result;
     }
 
-    public static ReqResp getRequest(String requestId){
+    public static ReqResp getRequest(String requestId) {
         var client = new HttpClient();
-        var json = client.get(REQUST_POST_URL + "/"+requestId, new HashMap<>());
+        var json = client.get(REQUST_POST_URL + "/" + requestId, new HashMap<>());
         var gson = new Gson();
         return gson.fromJson(json, ReqResp.class);
     }
 
-    public static List<Model> getAvailableModelList(){
+    public static List<Model> getAvailableModelList() {
         var client = new HttpClient();
         var json = client.get(ALLOWED_MODELS, new HashMap<>());
         var gson = new Gson();
         var result = gson.fromJson(json, ModelResponse.class);
-        return result.getModels().stream().map(ModelContainer::getModel).toList();
+        return result.getModels()
+                .stream()
+                .filter(m -> m.getAvailableNodes() > 0 && m.getActiveNodes() > 0)
+                .map(ModelContainer::getModel)
+                .toList();
     }
 
-    public static void unusedMethod(){
+    public static void unusedMethod() {
         System.setProperty("webdriver.edge.driver", "src/main/resources/msedgedriver.exe");
 
         WebDriver driver = new EdgeDriver();
