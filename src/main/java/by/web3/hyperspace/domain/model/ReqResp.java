@@ -9,14 +9,23 @@ public class ReqResp {
     private String modelID;
     private String prompt;
     private Params params;
-    private String status;
+    private Status status;
     private String userPK;
-    private LocalDateTime createdAt;
+    private long createdAt;
     private String result;
     private String nodePK;
-    private LocalDateTime completedAt;
+    private long completedAt;
     private String registrationID;
     private TokenStats tokenStats;
+    private String error;
+    private String errorMessage;
+
+    public enum Status {
+        PENDING,
+        ACK,
+        FAILED,
+        COMPLETED
+    }
 
     public String getId() {
         return id;
@@ -50,11 +59,11 @@ public class ReqResp {
         this.params = params;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -98,27 +107,31 @@ public class ReqResp {
         this.tokenStats = tokenStats;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
+    public long getCreatedAt() {return createdAt;}
 
-    public void setCreatedAt(long createdAt) {
-        this.createdAt = LocalDateTime.ofEpochSecond(
-                createdAt / 1000,
-                0,
-                ZoneOffset.UTC
-        );
-    }
+    public void setCreatedAt(long createdAt) {this.createdAt = createdAt;}
 
-    public LocalDateTime getCompletedAt() {
+    public long getCompletedAt() {
         return completedAt;
     }
 
     public void setCompletedAt(long completedAt) {
-        this.completedAt = LocalDateTime.ofEpochSecond(
-                completedAt / 1000,
-                0,
-                ZoneOffset.UTC // Указываем временную зону
-        );
+        this.completedAt = completedAt;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }

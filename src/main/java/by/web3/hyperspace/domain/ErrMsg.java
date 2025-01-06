@@ -3,23 +3,23 @@ package by.web3.hyperspace.domain;
 import java.io.Serializable;
 
 public class ErrMsg implements Serializable {
-    private int status;
+    private int statusCode;
     private String message;
 
     public ErrMsg() {
     }
 
-    public ErrMsg(int status, String message) {
-        this.status = status;
+    public ErrMsg(int statusCode, String message) {
+        this.statusCode = statusCode;
         this.message = message;
     }
 
-    public int getStatus() {
-        return status;
+    public int getStatusCode() {
+        return statusCode;
     }
 
-    public ErrMsg setStatus(int status) {
-        this.status = status;
+    public ErrMsg setStatusCode(int status) {
+        this.statusCode = status;
         return this;
     }
 
