@@ -1,0 +1,18 @@
+{
+  "id": "x37j56qoh7qn725p",
+  "modelID": "hf:bartowski/aixcoder-7b-GGUF:aixcoder-7b-Q4_K_M.gguf",
+  "prompt": "What is Rubby programming language ? ",
+  "params": {
+    "repeatLastN": 64,
+    "repeatPenalty": 1.1,
+    "sampleLen": 4096,
+    "seed": 5,
+    "temperature": 0.8,
+    "topP": 0.95
+  },
+  "status": "FAILED",
+  "userPK": "9k16Ekb676RubASR8bPCtCjUx528pr3oQrpEUARrWfpy",
+  "createdAt": 1736156372850,
+  "error": "InfreqTimedOutException",
+  "errorMessage": "Inference request timed out."
+}

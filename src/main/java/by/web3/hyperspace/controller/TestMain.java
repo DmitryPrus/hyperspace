@@ -7,16 +7,18 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import by.web3.hyperspace.service.HttpClient;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 
 public class TestMain {
 
     final static String ALLOWED_MODELS = "https://api.hive.aios.network/v1/models/live?skip=0";
 
     public static void main(String[] args) throws IOException {
-//        System.setProperty("webdriver.edge.driver", "src/main/resources/msedgedriver.exe");
-//
-//        WebDriver driver = new EdgeDriver();
-//
+        System.setProperty("webdriver.edge.driver", "src/main/resources/msedgedriver.exe");
+
+        WebDriver driver = new EdgeDriver();
+
 //        try {
 //            String url = "https://node.hyper.space";
 //            driver.get(url);

@@ -1,0 +1,20 @@
+{
+  "params": {
+    "repeatLastN": 64,
+    "repeatPenalty": 1.1,
+    "sampleLen": 4096,
+    "seed": 5,
+    "temperature": 0.8,
+    "topP": 0.95
+  },
+  "createdAt": 1736157427015,
+  "status": "PENDING",
+  "id": "gemqe97g85lta8iy",
+  "userPK": "9k16Ekb676RubASR8bPCtCjUx528pr3oQrpEUARrWfpy",
+  "modelID": "hf:bartowski/aixcoder-7b-GGUF:aixcoder-7b-Q4_K_M.gguf",
+  "prompt": "What is Python programming language ? ",
+  "result": "\\rIt\"s a general-purpose, high-level and interpreted scripting langugage. It has no large text files to split up or fixed compiler",
+  "registrationID": "dqeay9fxmv2gcx96",
+  "nodePK": "5zpLoqcXxNdNuDCi3xQaDxLeqRbKzfDZA1YuBrSGq5Jk",
+  "attempts": 1
+}
